@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #333;
+            padding: 10px;
+        }
+
+        form#universityForm {
+            display: flex;
+            flex-wrap: wrap;
+            padding-left: 10px;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .add {
+            border: #8ec5fc solid;
+            border-radius: 10px;
+            background-color: #9cc6ce;
+            gap: 10px;
+        }
+
+        form#universityForm input,
+        form#universityForm select {
+            padding: 10px 12px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        form#universityForm button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6366F1, #4F46E5);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(99, 102, 241, 0.5);
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        form#universityForm button:hover {
+            background: linear-gradient(135deg, #4F46E5, #3730A3);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.7);
+            transform: scale(1.05);
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #searchInput {
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            margin-top: 60px;
+            width: 260px;
+        }
+
+        .csv-buttons {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        #csvInput {
+            border: 3px solid;
+            border-radius: 5px;
+            margin-left: 5px;
+            background-color: #4F46E5;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6366F1;
+            color: white;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: sans-serif;
+            transition: background 0.3s ease;
+            margin-left: 5px;
+        }
+
+        .custom-file-upload i {
+            margin-right: 8px;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #4F46E5;
+        }
+
+        #exp {
+            background-color: #10b981;
+            /* Emerald green */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #exp i {
+            font-size: 18px;
+        }
+
+        #exp:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+        }
+
+        td button {
+            background-color: transparent;
+            border: none;
+            padding: 6px 8px;
+            margin: 0 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        td button:hover {
+            transform: scale(1.1);
+        }
+
+        .edit-btn i {
+            color: #3b82f6;
+            /* Blue */
+        }
+
+        .edit-btn:hover i {
+            color: #2563eb;
+            /* Darker blue */
+        }
+
+        .delete-btn i {
+            color: #ef4444;
+            /* Red */
+        }
+
+        .delete-btn:hover i {
+            color: #dc2626;
+            /* Darker red */
+        }
+        #logoutBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #f87171; /* Soft red */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#logoutBtn:hover {
+  background-color: #ef4444;
+  transform: scale(1.05);
+}
+
+#logoutBtn i {
+  margin-right: 8px;
+}
+/* #typeFilter {
+  width: ;
+} */
+
+
+    </style>
+
+</head>
+
+<body>
+    <button id="logoutBtn" onclick="logout()">
+  <i class="fa-solid fa-right-from-bracket"></i> Logout
+</button>
+
+
+    <div class="add">
+        <h2>Add University</h2>
+        <form id="universityForm">
+            <input type="text" placeholder="University Name" id="name" required>
+            <select id="type">
+                <option>Public</option>
+                <option>Private</option>
+            </select>
+            <input type="url" placeholder="Logo Url" id="Logo">
+            <input type="number" placeholder="Established Year" id="year">
+            <input type="text" placeholder="Country" id="country">
+            <input type="tel" placeholder="Phone" id="phone">
+            <input type="email" placeholder="Email" id="email">
+            <input type="url" placeholder="Website URL" id="website">
+            <input type="number" placeholder="Number of Students" id="students">
+            <button type="submit">Add University</button>
+        </form>
+    </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by university name..." oninput="searchByName()" />
+        </select>
+
+
+    </div>
+    <div class="csv-buttons">
+        <label for="csvInput" class="custom-file-upload">
+            <i class="fa-solid fa-file-import"></i> Import CSV
+        </label>
+        <input type="file" id="csvInput" accept=".csv" onchange="importCSV(event)" />
+
+        <button id="exp" onclick="exportCSV()"><i class="fa-solid fa-upload"></i>Export CSV</button>
+    </div>
+
+    
+    <table>
+        <thead>
+            <tr>
+                <th>University Logo</th>
+                <th>Name</th>
+                <th>Type
+                    <br />
+        <select id="typeFilter" onchange="filterByType()" style="margin-top: 5px; border: #059669 solid; border-radius: 5px;">
+          <option value="">All</option>
+          <option value="Public">Public</option>
+          <option value="Private">Private</option>
+          <option value="Deemed">Deemed</option>
+          <!-- add more types as needed -->
+        </select>
+                </th>
+                <th>Year</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Website</th>
+                <th>Students</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="universityTableBody">
+            <!-- Rows will be added by JS -->
+        </tbody>
+    </table>
+</body>
+<script>
+    // Load data from localStorage on page load
+    document.addEventListener("DOMContentLoaded", function () {
+        const savedData = JSON.parse(localStorage.getItem("universities")) || [];
+        savedData.forEach(data => addRowToTable(data));
+    });
+
+    function editRow(button) {
+        const row = button.parentElement.parentElement;
+        const cells = row.children;
+        document.getElementById("Logo").value = cells[0].querySelector("img").src;
+        document.getElementById("name").value = cells[1].textContent;
+        document.getElementById("type").value = cells[2].textContent;
+        document.getElementById("year").value = cells[3].textContent;
+        document.getElementById("country").value = cells[4].textContent;
+        document.getElementById("phone").value = cells[5].textContent;
+        document.getElementById("email").value = cells[6].textContent;
+        document.getElementById("website").value = cells[7].querySelector("a").href;
+        document.getElementById("students").value = cells[8].textContent;
+
+        // Remove this row from the table and localStorage
+        const nameToDelete = cells[1].textContent;
+        removeFromLocalStorage(nameToDelete);
+        row.remove();
+    }
+
+    document.getElementById("universityForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const data = {
+            logo: document.getElementById("Logo").value,
+            name: document.getElementById("name").value,
+            type: document.getElementById("type").value,
+            year: document.getElementById("year").value,
+            country: document.getElementById("country").value,
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
+            website: document.getElementById("website").value,
+            students: document.getElementById("students").value,
+        };
+
+        addRowToTable(data);
+        saveToLocalStorage(data);
+        document.getElementById("universityForm").reset();
+    });
+
+    function addRowToTable(data) {
+        const table = document.getElementById("universityTableBody");
+        const row = table.insertRow();
+
+        row.innerHTML = `
+            <td><img src="${data.logo}" alt="Logo" width="80px" height="70px"></td>
+            <td>${data.name}</td>
+            <td>${data.type}</td>
+            <td>${data.year}</td>
+            <td>${data.country}</td>
+            <td>${data.phone}</td>
+            <td>${data.email}</td>
+            <td><a href="${data.website}" target="_blank">${data.website}</a></td>
+            <td>${data.students}</td>
+            <td>
+                <button onclick="editRow(this)"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button style="color: red" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        `;
+    }
+
+    function saveToLocalStorage(data) {
+        const universities = JSON.parse(localStorage.getItem("universities")) || [];
+        universities.push(data);
+        localStorage.setItem("universities", JSON.stringify(universities));
+    }
+
+    function removeFromLocalStorage(name) {
+        let universities = JSON.parse(localStorage.getItem("universities")) || [];
+        universities = universities.filter(u => u.name !== name);
+        localStorage.setItem("universities", JSON.stringify(universities));
+    }
+
+    function deleteRow(button) {
+        const row = button.parentElement.parentElement;
+        const nameToDelete = row.children[1].textContent;
+        removeFromLocalStorage(nameToDelete);
+        row.remove();
+    }
+
+
+
+    function searchByName() {
+        const searchValue = document.getElementById("searchInput").value.toLowerCase();
+        const filterValue = document.getElementById("filterType")?.value || "";
+        const universities = JSON.parse(localStorage.getItem("universities")) || [];
+
+        const filtered = universities.filter(u => {
+            const matchesName = u.name.toLowerCase().includes(searchValue);
+            const matchesType = filterValue ? u.type === filterValue : true;
+            return matchesName && matchesType;
+        });
+
+        const tableBody = document.getElementById("universityTableBody");
+        tableBody.innerHTML = "";
+        filtered.forEach(data => addRowToTable(data));
+    }
+
+    function resetSearch() {
+        document.getElementById("searchInput").value = "";
+        searchByName(); // Reset view
+    }
+
+    function exportCSV() {
+        const data = JSON.parse(localStorage.getItem("universities")) || [];
+        if (data.length === 0) {
+            alert("No data to export.");
+            return;
+        }
+
+        const headers = Object.keys(data[0]);
+        const csvRows = [headers.join(",")];
+
+        for (const row of data) {
+            const values = headers.map(header => `"${(row[header] || "").toString().replace(/"/g, '""')}"`);
+            csvRows.push(values.join(","));
+        }
+
+        const csvString = csvRows.join("\n");
+        const blob = new Blob([csvString], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "universities.csv";
+        a.click();
+
+        URL.revokeObjectURL(url);
+    }
+    function importCSV(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const lines = e.target.result.trim().split("\n");
+            const headers = lines[0].split(",");
+
+            const universities = lines.slice(1).map(line => {
+                const values = line.split(",").map(v => v.replace(/^"|"$/g, "").replace(/""/g, '"'));
+                const entry = {};
+                headers.forEach((header, i) => {
+                    entry[header.trim()] = values[i]?.trim() || "";
+                });
+                return entry;
+            });
+            // Add each entry to the table and localStorage
+            universities.forEach(data => addRowToTable(data));
+            localStorage.setItem("universities", JSON.stringify(universities));
+            alert("CSV data imported successfully!");
+        };
+        reader.readAsText(file);
+    }
+    function logout() {
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.href = "index.html"; // Change to your login route
+}
+function filterByType() {
+  const filter = document.getElementById("typeFilter").value.toLowerCase();
+  const table = document.querySelector("table");
+  const rows = table.tBodies[0].rows;
+
+  for (let row of rows) {
+    const typeCell = row.cells[2].textContent.toLowerCase();
+
+    if (filter === "" || typeCell === filter) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  }
+}
+</script>
+</html>
