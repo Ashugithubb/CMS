@@ -83,10 +83,3 @@ university-dashboard/
 
 **Ashutosh Kumar**
 Frontend Developer | JavaScript Enthusiast
-
-📬 **Contact:** [[your-email@example.com](mailto:your-email@example.com)]
-🌐 **Portfolio:** [your-portfolio-link.com]
-
----
-
-Would you like me to tailor it for **GitHub (with emoji headings, badges, and preview image placeholder)** or keep it **minimal and clean** for a professional resume link?
