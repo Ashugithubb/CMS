@@ -33,16 +33,10 @@ Users can easily filter university data based on the type (e.g., Public, Private
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/university-dashboard.git
+git clone https://github.com/Ashugithubb/CMS.git
 ```
 
-### 2️⃣ Navigate to the project folder
-
-```bash
-cd university-dashboard
-```
-
-### 3️⃣ Open the project
+### 2️⃣ Open the project
 
 Simply open the `index.html` file in your browser:
 
