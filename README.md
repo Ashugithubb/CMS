@@ -68,7 +68,8 @@ university-dashboard/
 ---
 
 ## 📸 Preview
-![Uploading Screenshot (8).png…]()
+<img width="1920" height="903" alt="Screenshot (8)" src="https://github.com/user-attachments/assets/3c79bbfa-52af-47fb-b529-8518275454a4" />
+
 
 
 
