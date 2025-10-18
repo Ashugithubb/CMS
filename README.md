@@ -68,7 +68,10 @@ university-dashboard/
 ---
 
 ## 📸 Preview
-<img width="1920" height="903" alt="Screenshot (8)" src="https://github.com/user-attachments/assets/3c79bbfa-52af-47fb-b529-8518275454a4" />
+<img width="920" height="520" alt="Screenshot (8)" src="https://github.com/user-attachments/assets/3c79bbfa-52af-47fb-b529-8518275454a4" />
+<img width="920" height="520" alt="Screenshot (9)" src="https://github.com/user-attachments/assets/db332887-154d-49c7-bf75-00eb9c1b7b74" />
+<img width="920" height="520" alt="Screenshot (10)" src="https://github.com/user-attachments/assets/7b40c98e-dc39-482b-a8e9-31c2dbf32476" />
+
 
 
 
